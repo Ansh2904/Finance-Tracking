@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transactions</title>
+  <link rel="stylesheet" href="/transaction.css">
+</head>
+<body>
+  <nav>
+    <a href="/home">Home</a>
+    <a href="/transactions">Transactions</a>
+    <a href="/budget">Budget</a>
+    <a href="/goals">Goals</a>
+    <a href="/logout"><b>LogOut</b></a>
+
+  </nav>
+  <div class="main_content">
+  <h1>Transaction History</h1>
+  <div class="container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Amount</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% transactions.forEach(transaction => { %>
+        <tr>
+          <td><%= transaction.id %></td>
+          <td><%= transaction.date %></td>
+          <td><%= transaction.description %></td>
+          <td><%= transaction.amount %></td>
+          <td><%= transaction.type %></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <h2>Add a New Transaction</h2>
+    <form action="/transactions" method="POST">
+      <input type="text" name="description" placeholder="Description" required>
+      <input type="number" name="amount" placeholder="Amount" step="0.01" required>
+      <select name="type" required>
+        <option value="">Select Type</option>
+        <option value="Income">Income</option>
+        <option value="Expense">Expense</option>
+      </select>
+      <button type="submit">Add Transaction</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

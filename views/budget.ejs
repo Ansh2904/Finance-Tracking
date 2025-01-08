@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget</title>
+  <link rel="stylesheet" href="/budget.css">
+
+</head>
+<body>
+  <nav>
+    <a href="/home">Home</a>
+    <a href="/transactions">Transactions</a>
+    <a href="/budget">Budget</a>
+    <a href="/goals">Goals</a>
+    <a href="/logout">LogOut</a>
+
+  </nav>
+  <div class="main_content">
+  <h1>Budget Overview</h1>
+  <div class="container">
+    <h2>Set Your Monthly Budget</h2>
+    <% if (error) { %>
+      <p style="color: red;"><%= error %></p>
+    <% } %>
+    <form action="/budget" method="POST">
+      <input 
+        type="number" 
+        name="amount" 
+        placeholder="Enter budget amount" 
+        value="<%= budget || '' %>" 
+        step="0.01" 
+        required>
+      <button type="submit">Set Budget</button>
+    </form>
+
+    <h2>Budget Summary</h2>
+    <p><strong>Total Budget:</strong> $<%= budget %></p>
+    <p><strong>Total Expenses:</strong> $<%= totalExpenses %></p>
+    <p><strong>Remaining Budget:</strong> 
+      $<%= remainingBudget %> 
+      <% if (remainingBudget < 0) { %>
+        <span style="color: red;">(Exceeded!)</span>
+      <% } %>
+    </p>
+  </div>
+</div>
+</body>
+</html>

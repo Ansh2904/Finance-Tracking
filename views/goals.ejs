@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goals</title>
+  <link rel="stylesheet" href="/goal.css">
+
+</head>
+<body>
+  <nav>
+    <a href="/home">Home</a>
+    <a href="/transactions">Transactions</a>
+    <a href="/budget">Budget</a>
+    <a href="/goals">Goals</a>
+    <a href="/logout">LogOut</a>
+
+  </nav>
+  <div class="main_content">
+  <h1>Financial Goals</h1>
+  <div class="container">
+    <h2>Set a New Goal</h2>
+    <form action="/goals" method="POST">
+      <input type="text" name="title" placeholder="Goal Title" required>
+      <input type="number" name="target_amount" placeholder="Target Amount" step="0.01" required>
+      <input type="date" name="deadline" required>
+      <button type="submit">Add Goal</button>
+    </form>
+
+    <h2>Your Goals</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Target Amount</th>
+          <th>Saved Amount</th>
+          <th>Deadline</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% goals.forEach(goal => { %>
+          <tr>
+            <td><%= goal.title %></td>
+            <td>$<%= goal.target_amount %></td>
+            <td>$<%= goal.saved_amount %></td>
+            <td><%= goal.deadline %></td>
+            <td>
+              <% if (goal.completed) { %>
+                <span style="color: green;">Completed</span>
+              <% } else { %>
+                <span style="color: red;">In Progress</span>
+              <% } %>
+            </td>
+            <td>
+              <% if (!goal.completed) { %>
+                <form action="/goals/<%= goal.id %>/progress" method="POST" style="display:inline;">
+                  <input type="number" name="saved_amount" placeholder="Add to Savings" step="0.01" required>
+                  <button type="submit">Update</button>
+                </form>
+              <% } %>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>
